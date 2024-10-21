@@ -17,27 +17,33 @@ public class Main {
      */
     public static void giveRaise(List<Person> persons, String manager, String employee, double salary) throws ClassCastException, IllegalArgumentException, NoSuchElementException  {
         Employee _employee = null;
+
         for(Person p : persons) {
-            if(p.getName() == employee) {
+            if(p.getName().equals(employee)) {
                 if(!(p instanceof Employee)) {
-                    throw new ClassCastException();
+                    throw new ClassCastException(p.getName() + " is not an employee");
                 } else {
                     _employee = (Employee) p;
+                    break;
                 }
             }
         }
 
+        if(_employee == null) {
+            throw new NoSuchElementException(employee + " does not exist");
+        }
+
         for(Person p: persons) {
-            if(p.getName() == manager) {
+            if(p.getName().equals(manager)) {
                 if(!(p instanceof Manager)) {
-                    throw new ClassCastException();
+                    throw new ClassCastException(p.getName() + " is not a manager");
                 }
                 ((Manager) p).giveRaise(_employee, salary);
                 return;
             }
         }
 
-        throw new NoSuchElementException();
+        throw new NoSuchElementException(manager + " does not exist");
     }
 
     /**
@@ -53,26 +59,31 @@ public class Main {
         Developer _developer = null;
 
         for(Person p : persons) {
-            if(p.getName() == developer) {
-                if(!(p instanceof Developer)) {
-                    throw new ClassCastException();
+            if(p.getName().equals(developer)) {
+                if (!(p instanceof Developer)) {
+                    throw new ClassCastException(p.getName() + " is not a developer");
                 } else {
                     _developer = (Developer) p;
+                    break;
                 }
             }
         }
 
+        if(_developer == null) {
+            throw new NoSuchElementException(developer + " does not exist");
+        }
+
         for(Person p: persons) {
-            if(p.getName() == manager) {
+            if(p.getName().equals(manager)) {
                 if(!(p instanceof Manager)) {
-                    throw new ClassCastException();
+                    throw new ClassCastException(p.getName() + " is not a manager");
                 }
                 _developer.setProjectManager((Manager) p);
                 return;
             }
         }
 
-        throw new NoSuchElementException();
+        throw new NoSuchElementException(manager + " does not exist");
     }
 
     /**
@@ -88,23 +99,28 @@ public class Main {
         Customer _customer = null;
 
         for(Person p : persons) {
-            if(p.getName() == customer) {
+            if(p.getName().equals(customer)) {
                 if(!(p instanceof Customer)) {
-                    throw new IllegalArgumentException();
+                    throw new ClassCastException(p.getName() + " is not a customer");
                 } else {
                     _customer = (Customer) p;
+                    break;
                 }
             }
         }
 
-        for(Person p2: persons) {
-            if(p2.getName() == employee) {
-                if(!(p2 instanceof Employee)) {
-                    throw new IllegalArgumentException();
+        if(_customer == null) {
+            throw new NoSuchElementException(customer + " does not exist");
+        }
+
+        for(Person p: persons) {
+            if(p.getName().equals(employee)) {
+                if(!(p instanceof Employee)) {
+                    throw new ClassCastException(p.getName() + " is not an employee");
                 }
-                return _customer.speak((Employee) p2);
+                return _customer.speak((Employee) p);
             }
         }
-        throw new NoSuchElementException();
+        throw new NoSuchElementException(employee + " does not exist");
     }
 }

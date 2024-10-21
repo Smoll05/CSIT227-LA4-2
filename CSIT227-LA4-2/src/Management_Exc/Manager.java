@@ -16,8 +16,8 @@ public class Manager extends Employee {
 
         e.setSalary(e.getSalary() + raise);
 
-        if(e.getName() != this.getName()) {
-            this.setSalary(e.getSalary() + raise/2);
+        if(!e.getName().equals(this.getName())) {
+            this.setSalary(getSalary() + raise/2);
         }
     }
 
